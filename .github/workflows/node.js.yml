@@ -25,4 +25,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: cd ~/github_repos/soochi
-    - run: sr dukandar-soochi
+    - run: pm2 start dukandar-soochi
