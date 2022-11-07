@@ -24,5 +24,19 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd ~/github_repos/soochi
-    - run: pm2 start dukandar-soochi
+    - run: cd /home/ubuntu/dukandar-repos/sample-deploy
+    - run: git fetch --prune --all
+    - run: git checkout main
+    - run: git reset --hard origin/main
+    - run: git pull && npm i --only=prod
+    - run: sudo docker rm -f sample-deploy
+    - run: sudo docker rmi -f sample-deploy
+    - run: echo 'About to build docker image'
+    - run: sleep 10
+    - run: (DOCKER_BUILDKIT=1 sudo docker build -t sample-deploy .) &&
+    - run: (sudo docker run -d --name sample-deploy -p 3333:3333 sample-deploy:latest)
+    - run: sleep 3
+    - run: echo 'Deploying image on container .'
+    - run: sleep 3
+    - run: echo 'Deploying image in container ...'
+    - run: curl http://localhost:3333/
