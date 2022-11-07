@@ -32,8 +32,8 @@ jobs:
     - run: sudo docker rmi -f sample-deploy
     - run: echo 'About to build docker image'
     - run: sleep 10
-    - run: (DOCKER_BUILDKIT=1 sudo docker build -t sample-deploy .) &&
-    - run: (sudo docker run -d --name sample-deploy -p 3333:3333 sample-deploy:latest)
+    - run: DOCKER_BUILDKIT=1 sudo docker build -t sample-deploy .
+    - run: sudo docker run -d --name sample-deploy -p 3333:3333 sample-deploy:latest
     - run: sleep 3
     - run: echo 'Deploying image on container .'
     - run: sleep 3
