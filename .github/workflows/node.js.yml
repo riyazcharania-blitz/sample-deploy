@@ -23,11 +23,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd /home/ubuntu/dukandar-repos/sample-deploy
-    - run: git fetch --prune --all
-    - run: git checkout main
-    - run: git reset --hard origin/main
-    - run: git pull && npm i --only=prod
     - run: sudo docker rm -f sample-deploy
     - run: sudo docker rmi -f sample-deploy
     - run: echo 'About to build docker image'
